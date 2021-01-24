@@ -36,9 +36,11 @@ foreach( $dates[ strtoupper( date( 'D' ) ) ] as $id => $name ) {
 	foreach( $tries as $try ) {
 		$url = $connection . 'bang' . $try;
 
-		if( !file_exists( $filepath ) ) {
-			exec('wget -O ' . str_replace(' ', '\ ', $filepath) . ' ' . $url);
-		}
+		if( file_exists( $filepath ) ) {
+            break;
+        }
+        
+        exec('wget -O ' . str_replace(' ', '\ ', $filepath) . ' ' . $url);		
 
 	}
 

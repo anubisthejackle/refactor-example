@@ -30,7 +30,7 @@ namespace Legacy {
     function file_exists( $file ) {
         global $file_exists_returns;
         global $fileExistsExecutions;
-
+        // var_dump($file);
         $fileExistsExecutions++;
 
         if(\is_array($file_exists_returns) && count($file_exists_returns) > 0){
@@ -102,7 +102,7 @@ namespace Tests {
             $this->expectOutputString('Success');
             include( dirname(__DIR__) . '/scripts/legacyScript.php' );
 
-            $this->assertEquals(5, $fileExistsExecutions);
+            $this->assertEquals(2, $fileExistsExecutions);
         }
         
         public function test_monday_script_runs_as_expected_when_file_doesnt_initially_exist_but_downloads_successfully() {
@@ -118,7 +118,7 @@ namespace Tests {
             $this->expectOutputString('Success');
             include( dirname(__DIR__) . '/scripts/legacyScript.php' );
 
-            $this->assertEquals(5, $fileExistsExecutions, "Number of times file_exists function was called.");
+            $this->assertEquals(3, $fileExistsExecutions, "Number of times file_exists function was called.");
             $this->assertEquals(1, $execExecutions, "Number of times exec function was called.");
         }
 
@@ -158,7 +158,7 @@ namespace Tests {
             $this->expectOutputString('SuccessSuccessSuccess');
             include( dirname(__DIR__) . '/scripts/legacyScript.php' );
 
-            $this->assertEquals(15, $fileExistsExecutions);
+            $this->assertEquals(6, $fileExistsExecutions);
         }
         
         public function test_friday_script_runs_as_expected_when_file_doesnt_initially_exist_but_downloads_successfully() {
@@ -167,15 +167,15 @@ namespace Tests {
             global $fileExistsExecutions;
             global $execExecutions;
 
-            $file_exists_returns = [false,true,true,true,true,true,true,true,true,true,true,true,true,true,true];
+            $file_exists_returns = [false,true,true,false,true,true,false,true,true];
             $timestamp = \strtotime('last Friday');
 
             
             $this->expectOutputString('SuccessSuccessSuccess');
             include( dirname(__DIR__) . '/scripts/legacyScript.php' );
 
-            $this->assertEquals(15, $fileExistsExecutions, "Number of times file_exists function was called.");
-            $this->assertEquals(6, $execExecutions, "Number of times exec function was called.");
+            $this->assertEquals(9, $fileExistsExecutions, "Number of times file_exists function was called.");
+            $this->assertEquals(8, $execExecutions, "Number of times exec function was called.");
         }
 
         public function test_friday_script_runs_as_expected_when_file_doesnt_initially_exist_and_does_not_download() {
@@ -198,7 +198,7 @@ namespace Tests {
             include( dirname(__DIR__) . '/scripts/legacyScript.php' );
 
             $this->assertEquals(15, $fileExistsExecutions, "Number of times file_exists function was called.");
-            $this->assertEquals(18, $execExecutions, "Number of times exec function was called.");
+            $this->assertEquals(20, $execExecutions, "Number of times exec function was called.");
             $this->assertEquals(4, $mailExecutions, "Number of times mail function was called.");
         }
 
