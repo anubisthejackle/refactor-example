@@ -3,7 +3,6 @@
 namespace Legacy;
 
 function getFile($id, $name) {
-    $connection = 'ftp://username:password@ftp.example.com/';
     $filepath = '/mnt/data/location/' . $id . '.eps';
 
 	$tries = array(
@@ -14,13 +13,12 @@ function getFile($id, $name) {
 		);
 
 	foreach( $tries as $try ) {
-		$url = $connection . 'bang' . $try;
-
+		
 		if( file_exists( $filepath ) ) {
             break;
         }
 
-        exec('wget -O ' . str_replace(' ', '\ ', $filepath) . ' ' . $url);		
+        downloadFile($filepath, $try);
 
 	}
 
@@ -30,3 +28,9 @@ function getFile($id, $name) {
 		echo 'Success';
 	}
 };
+
+function downloadFile($path, $filename) {
+    $connection = 'ftp://username:password@ftp.example.com/';
+    $url = $connection . 'bang' . $filename;
+    exec('wget -O ' . str_replace(' ', '\ ', $path) . ' ' . $url);
+}
