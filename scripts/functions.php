@@ -2,14 +2,44 @@
 
 namespace Legacy;
 
-function getFile($id, $name) {
-    $filepath = '/mnt/data/location/' . $id . '.eps';
+function getDates() {
+    $dates = array(
+        'MON' => array(
+            1234 => 'tue',
+        ),
+        'TUE' => array(
+            1235 => 'wed',
+        ),
+        'WED' => array(
+            1236 => 'thu',
+        ),
+        'THU' => array(
+            1237 => 'fri',
+        ),
+        'FRI' => array(
+            1238 => 'sat',
+            1239 => 'sun',
+            1240 => 'mon',
+        ),
+    );
+    
+    return $dates[ strtoupper( date( 'D' ) ) ];
+}
 
-	if( !fileExistsOrDownload( $name, $filepath ) ) {
-		mail( 'me@email.com', 'File failed to download', 'The file failed to download. You might need to download it manually.' );
-	} else {
-		echo 'Success';
-	}
+function getFile() {
+
+    $datesAndIds = getDates();
+
+    foreach($datesAndIds as $id => $name) {
+        $filepath = '/mnt/data/location/' . $id . '.eps';
+    
+        if( !fileExistsOrDownload( $name, $filepath ) ) {
+            mail( 'me@email.com', 'File failed to download', 'The file failed to download. You might need to download it manually.' );
+        } else {
+            echo 'Success';
+        }
+    }
+
 };
 
 function downloadFile($path, $filename) {
@@ -37,5 +67,4 @@ function fileExistsOrDownload($name, $filepath) {
     }
 
     return false;
-    
 }
