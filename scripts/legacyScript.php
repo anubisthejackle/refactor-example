@@ -21,10 +21,9 @@ $dates = array(
 	),
 );
 
-$connection = 'ftp://username:password@ftp.example.com/';
-
-foreach( $dates[ strtoupper( date( 'D' ) ) ] as $id => $name ) {
-	$filepath = '/mnt/data/location/' . $id . '.eps';
+$getFile = function ($id, $name) {
+    $connection = 'ftp://username:password@ftp.example.com/';
+    $filepath = '/mnt/data/location/' . $id . '.eps';
 
 	$tries = array(
 			strtoupper( $name ) . '.eps',
@@ -39,7 +38,7 @@ foreach( $dates[ strtoupper( date( 'D' ) ) ] as $id => $name ) {
 		if( file_exists( $filepath ) ) {
             break;
         }
-        
+
         exec('wget -O ' . str_replace(' ', '\ ', $filepath) . ' ' . $url);		
 
 	}
@@ -49,4 +48,6 @@ foreach( $dates[ strtoupper( date( 'D' ) ) ] as $id => $name ) {
 	} else {
 		echo 'Success';
 	}
-}
+};
+
+array_map($getFile, $dates[ strtoupper( date( 'D' ) ) ], array_keys($dates[ strtoupper( date( 'D' ) ) ]));
