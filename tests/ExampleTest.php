@@ -1,8 +1,12 @@
 <?php
 namespace Legacy {
     use function PHPUnit\Framework\assertTrue;
+
+    $dateReturnValue = 'MON';
+
     function date() {
-        return 'MON';
+        global $dateReturnValue;
+        return $dateReturnValue;
     }
 
     $fileExistsReturnValue = true;
@@ -27,7 +31,10 @@ namespace Tests {
     class ExampleTest extends \PHPUnit\Framework\TestCase {
         public function setUp() : void {
             global $fileExistsReturnValue;
+            global $dateReturnValue;
+
             $fileExistsReturnValue = true;
+            $dateReturnValue = 'MON';
         }
         public function test_monday_script_runs_as_expected_when_file_exists() {
 
@@ -52,10 +59,10 @@ namespace Tests {
         }
 
         public function test_friday_script_runs_as_expected_when_file_exists() {
-
+            global $dateReturnValue;
+            $dateReturnValue = 'FRI';
             $this->expectOutputString('SuccessSuccessSuccess');
             include( dirname(__DIR__) . '/scripts/legacyScript.php' );
-
         }
     }
 }
