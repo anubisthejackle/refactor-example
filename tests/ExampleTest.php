@@ -46,5 +46,12 @@ namespace Tests {
             $this->expectOutputString('Success');
 
         }
+
+        public function test_friday_script_runs_as_expected_when_file_exists() {
+
+            $this->expectOutputString('SuccessSuccessSuccess');
+            include( dirname(__DIR__) . '/scripts/legacyScript.php' );
+
+        }
     }
 }
