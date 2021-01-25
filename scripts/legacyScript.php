@@ -2,4 +2,6 @@
 namespace Legacy;
 require_once( __DIR__ . '/functions.php' );
 
-getFile();
+$example = new Example();
+
+$example->getFile();
