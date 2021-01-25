@@ -33,5 +33,13 @@ namespace Tests {
             include( dirname(__DIR__) . '/scripts/legacyScript.php' );
 
         }
+
+        public function test_monday_script_runs_as_expected_when_file_does_not_exist_but_does_download() {
+            global $fileExistsReturnValue;
+            $fileExistsReturnValue = false;
+            include( dirname(__DIR__) . '/scripts/legacyScript.php' );
+            $this->expectOutputString('Success');
+
+        }
     }
 }
