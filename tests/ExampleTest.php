@@ -82,5 +82,12 @@ namespace Tests {
             include( dirname(__DIR__) . '/scripts/legacyScript.php' );
             $this->assertEquals(3, $mailCounter);
         }
+
+        public function test_friday_script_runs_as_expected_when_file_does_not_exist_but_does_download() {
+            global $fileExistsReturnValue;
+            $fileExistsReturnValue = [false,true,true,true,true];
+            include( dirname(__DIR__) . '/scripts/legacyScript.php' );
+            $this->expectOutputString('SuccessSuccessSuccess');
+        }
     }
 }
