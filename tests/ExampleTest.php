@@ -72,13 +72,15 @@ namespace Tests {
             include( dirname(__DIR__) . '/scripts/legacyScript.php' );
         }
 
-        // public function test_friday_script_runs_as_expected_when_file_does_not_exist() {
-        //     global $fileExistsReturnValue;
-        //     global $dateReturnValue;
-        //     $dateReturnValue = 'FRI';
-        //     $fileExistsReturnValue = false;
+        public function test_friday_script_runs_as_expected_when_file_does_not_exist() {
+            global $fileExistsReturnValue;
+            global $dateReturnValue;
+            global $mailCounter;
+            $dateReturnValue = 'FRI';
+            $fileExistsReturnValue = false;
             
-        //     include( dirname(__DIR__) . '/scripts/legacyScript.php' );
-        // }
+            include( dirname(__DIR__) . '/scripts/legacyScript.php' );
+            $this->assertEquals(3, $mailCounter);
+        }
     }
 }
