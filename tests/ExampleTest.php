@@ -3,7 +3,9 @@ namespace Legacy {
     function date() {
         return 'MON';
     }
-    function file_exists() {}
+    function file_exists() {
+        return true;
+    }
     function exec() {}
     function mail() {}
 }
