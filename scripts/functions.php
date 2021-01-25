@@ -42,12 +42,6 @@ function getFile() {
 
 };
 
-function downloadFile($path, $filename) {
-    $connection = 'ftp://username:password@ftp.example.com/';
-    $url = $connection . 'bang' . $filename;
-    exec('wget -O ' . str_replace(' ', '\ ', $path) . ' ' . $url);
-}
-
 function fileExistsOrDownload($name, $filepath) {
 	$tries = array(
         strtoupper( $name ) . '.eps',
@@ -67,4 +61,15 @@ function fileExistsOrDownload($name, $filepath) {
     }
 
     return false;
+}
+
+function downloadFile($path, $filename) {
+
+    $connection = ftp_connect('ftp.example.com');
+    ftp_login($connection, 'username', 'password');
+    ftp_pasv($connection, true);
+
+    $filename = 'bang' . $filename;
+    ftp_get($connection, $path, $filename);
+
 }

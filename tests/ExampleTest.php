@@ -8,14 +8,27 @@ namespace Legacy {
     
     $file_exists_returns = [true];
     $fileExistsExecutions = 0;
-    
-    $execExecutions = 0;
-    $expectedExecCommand = null;
-    
+        
     $mailExecutions = 0;
     $expectedMailTo = null;
     $expectedMailSubject = null;
     $expectedMailBody = null;
+
+    function ftp_connect() {
+
+    }
+
+    function ftp_login() {
+
+    }
+
+    function ftp_pasv() {
+
+    }
+
+    function ftp_get() {
+
+    }
 
     function date( $format ) {
         global $timestamp;
@@ -41,16 +54,6 @@ namespace Legacy {
         }
 
         return $file_exists_returns;
-    }
-
-    function exec($command) {
-        global $execExecutions;
-        global $expectedExecCommand;
-        $execExecutions++;
-
-        if($expectedExecCommand !== null){
-            assertEquals($expectedExecCommand, $command);
-        }
     }
 
     function mail($email, $subject, $message) {
@@ -109,7 +112,6 @@ namespace Tests {
             global $timestamp;
             global $file_exists_returns;
             global $fileExistsExecutions;
-            global $execExecutions;
 
             $file_exists_returns = [false,true,true,true,true];
             $timestamp = \strtotime('last Monday');
@@ -119,14 +121,12 @@ namespace Tests {
             include( dirname(__DIR__) . '/scripts/legacyScript.php' );
 
             $this->assertEquals(2, $fileExistsExecutions, "Number of times file_exists function was called.");
-            $this->assertEquals(1, $execExecutions, "Number of times exec function was called.");
         }
 
         public function test_monday_script_runs_as_expected_when_file_doesnt_initially_exist_and_does_not_download() {
             global $timestamp;
             global $file_exists_returns;
             global $fileExistsExecutions;
-            global $execExecutions;
             global $mailExecutions;
             global $expectedMailTo;
             global $expectedMailSubject;
@@ -142,7 +142,6 @@ namespace Tests {
             include( dirname(__DIR__) . '/scripts/legacyScript.php' );
 
             $this->assertEquals(4, $fileExistsExecutions, "Number of times file_exists function was called.");
-            $this->assertEquals(5, $execExecutions, "Number of times exec function was called.");
             $this->assertEquals(1, $mailExecutions, "Number of times mail function was called.");
         }
 
@@ -165,7 +164,6 @@ namespace Tests {
             global $timestamp;
             global $file_exists_returns;
             global $fileExistsExecutions;
-            global $execExecutions;
 
             $file_exists_returns = [false,true,true,false,true,true,false,true,true];
             $timestamp = \strtotime('last Friday');
@@ -175,14 +173,12 @@ namespace Tests {
             include( dirname(__DIR__) . '/scripts/legacyScript.php' );
 
             $this->assertEquals(5, $fileExistsExecutions, "Number of times file_exists function was called.");
-            $this->assertEquals(7, $execExecutions, "Number of times exec function was called.");
         }
 
         public function test_friday_script_runs_as_expected_when_file_doesnt_initially_exist_and_does_not_download() {
             global $timestamp;
             global $file_exists_returns;
             global $fileExistsExecutions;
-            global $execExecutions;
             global $mailExecutions;
             global $expectedMailTo;
             global $expectedMailSubject;
@@ -198,7 +194,6 @@ namespace Tests {
             include( dirname(__DIR__) . '/scripts/legacyScript.php' );
 
             $this->assertEquals(12, $fileExistsExecutions, "Number of times file_exists function was called.");
-            $this->assertEquals(19, $execExecutions, "Number of times exec function was called.");
             $this->assertEquals(4, $mailExecutions, "Number of times mail function was called.");
         }
 
