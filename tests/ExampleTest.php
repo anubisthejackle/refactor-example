@@ -10,8 +10,13 @@ namespace Legacy {
     function file_exists() {
         global $fileExistsReturnValue;
 
+        if(is_array($fileExistsReturnValue)){
+            return array_shift($fileExistsReturnValue);
+        }
+
         return $fileExistsReturnValue;
     }
+
     function exec() {}
     function mail() {
         assertTrue(true);
@@ -36,7 +41,7 @@ namespace Tests {
 
         public function test_monday_script_runs_as_expected_when_file_does_not_exist_but_does_download() {
             global $fileExistsReturnValue;
-            $fileExistsReturnValue = false;
+            $fileExistsReturnValue = [false,true,true,true,true];
             include( dirname(__DIR__) . '/scripts/legacyScript.php' );
             $this->expectOutputString('Success');
 
