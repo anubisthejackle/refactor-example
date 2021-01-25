@@ -1,4 +1,6 @@
 <?php
+namespace Legacy;
+
 $dates = array(
 	'MON' => array(
 		729181 => 'tue',
