@@ -85,7 +85,9 @@ namespace Tests {
 
         public function test_friday_script_runs_as_expected_when_file_does_not_exist_but_does_download() {
             global $fileExistsReturnValue;
-            $fileExistsReturnValue = [false,true,true,true,true];
+            global $dateReturnValue;
+            $dateReturnValue = 'FRI';
+            $fileExistsReturnValue = [false,true,true,true,true,false,true,true,true,true,false,true,true,true,true];
             include( dirname(__DIR__) . '/scripts/legacyScript.php' );
             $this->expectOutputString('SuccessSuccessSuccess');
         }
