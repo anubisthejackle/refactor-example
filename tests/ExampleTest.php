@@ -1,6 +1,8 @@
 <?php
 namespace Legacy {
-    function date() {}
+    function date() {
+        return 'MON';
+    }
     function file_exists() {}
     function exec() {}
     function mail() {}
